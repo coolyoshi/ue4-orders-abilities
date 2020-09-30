@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AttributeSet.h"
 #include "AbilitySystem/RTSAttributeSet.h"
 #include "RTSAttackAttributeSet.generated.h"
 
@@ -27,21 +28,21 @@ public:
     UPROPERTY(Category = "Attributes|Attack", BlueprintReadOnly, ReplicatedUsing = OnRep_Damage)
     float Damage;
     UFUNCTION()
-    void OnRep_Damage();
+    void OnRep_Damage(const float& OldDamage);
     static const FGameplayAttribute& DamageAttribute();
 
     /** Time before the attack can be used again, in seconds. */
     UPROPERTY(Category = "Attributes|Attack", BlueprintReadOnly, ReplicatedUsing = OnRep_Cooldown)
     float Cooldown;
     UFUNCTION()
-    void OnRep_Cooldown();
+    void OnRep_Cooldown(const float& OldCooldown);
     static const FGameplayAttribute& CooldownAttribute();
 
     /** Attack range, in cm. */
     UPROPERTY(Category = "Attributes|Attack", BlueprintReadOnly, ReplicatedUsing = OnRep_Range)
     float Range;
     UFUNCTION()
-    void OnRep_Range();
+    void OnRep_Range(const float& OldRange);
     static const FGameplayAttribute& RangeAttribute();
 
     /**
@@ -51,11 +52,11 @@ public:
     UPROPERTY(Category = "Attributes|Attack", BlueprintReadOnly, ReplicatedUsing = OnRep_OutgoingDamageMultiplier)
     float OutgoingDamageMultiplier;
     UFUNCTION()
-    void OnRep_OutgoingDamageMultiplier();
+    void OnRep_OutgoingDamageMultiplier(const float& OldOutgoingDamageMultiplier);
     static const FGameplayAttribute& OutgoingDamageMultiplierAttribute();
 
     //~ Begin UAttributeSet Interface
-    virtual bool ShouldInitProperty(bool FirstInit, UProperty* PropertyToInit) const override;
+    virtual bool ShouldInitProperty(bool FirstInit, FProperty* PropertyToInit) const override;
     virtual void PreAttributeBaseChange(const FGameplayAttribute& Attribute, float& NewValue) const override;
     //~ End UAttributeSet Interface
 
